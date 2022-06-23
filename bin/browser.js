@@ -20,6 +20,18 @@ const consoleMessages = [];
 
 const failedRequests = [];
 
+function sleep(delay) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            try {
+                resolve(1)
+            } catch (e) {
+                reject(0)
+            }
+        }, delay)
+    })
+}
+
 const getOutput = async (page, request) => {
     let output;
 
@@ -351,6 +363,24 @@ const callChrome = async pup => {
             };
             await page.waitForFunction(request.options.function, functionOptions);
         }
+
+        //注入代码，慢慢把滚动条滑到最底部，保证所有的元素被全部加载
+        let scrollEnable = true;
+        let scrollStep = 500; //每次滚动的步长
+        while (scrollEnable) {
+            scrollEnable = await page.evaluate((scrollStep) => {
+                let scrollTop = document.scrollingElement.scrollTop;
+                document.scrollingElement.scrollTop = scrollTop + scrollStep;
+                return document.body.clientHeight > scrollTop + 1080 ? true : false
+            }, scrollStep);
+            await sleep(50);
+        }
+
+        await sleep(200);
+
+        await page.evaluate(_ => {
+            window.scrollTo(0, 0);
+        });
 
         output = await getOutput(page, request);
 
