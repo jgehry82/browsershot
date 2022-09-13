@@ -1,3 +1,39 @@
+## 3.57.2 - 2022-08-19
+
+### What's Changed
+
+- Prevent double request interception on POST by @JeppeKnockaert in https://github.com/spatie/browsershot/pull/664
+
+### New Contributors
+
+- @JeppeKnockaert made their first contribution in https://github.com/spatie/browsershot/pull/664
+
+**Full Changelog**: https://github.com/spatie/browsershot/compare/3.57.1...3.57.2
+
+## 3.57.1 - 2022-08-03
+
+### What's Changed
+
+- Enable writeOptionsToFile for Windows by @moisish in https://github.com/spatie/browsershot/pull/660
+
+### New Contributors
+
+- @moisish made their first contribution in https://github.com/spatie/browsershot/pull/660
+
+**Full Changelog**: https://github.com/spatie/browsershot/compare/3.57.0...3.57.1
+
+## 3.57.0 - 2022-06-28
+
+### What's Changed
+
+- Set custom temp path by @mtawil in https://github.com/spatie/browsershot/pull/648
+
+### New Contributors
+
+- @mtawil made their first contribution in https://github.com/spatie/browsershot/pull/648
+
+**Full Changelog**: https://github.com/spatie/browsershot/compare/3.56.0...3.57.0
+
 ## 3.56.0 - 2022-06-21
 
 - add `failedRequests` method

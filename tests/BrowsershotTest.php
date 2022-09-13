@@ -980,6 +980,14 @@ it('can send post request', function () {
     ], $command);
 });
 
+it('can process post request', function () {
+    $html = Browsershot::url('https://httpbin.org/post')
+        ->post(['foo' => 'bar'])
+        ->bodyHtml();
+
+    expect($html)->toContain('"foo": "bar"');
+});
+
 it('can click on the page', function () {
     $command = Browsershot::url('https://example.com')
         ->click('#selector1')
@@ -1524,4 +1532,16 @@ it('can get the failed requests', function () {
     expect($failedRequests)->toBeArray()
         ->and($failedRequests[0]['status'])->toBe(404)
         ->and($failedRequests[0]['url'])->toBe('https://bitsofco.de/broken.jpg/');
+});
+
+it('can set the custom temp path', function () {
+    $output = Browsershot::url('https://example.com')
+        ->setCustomTempPath(__DIR__.'/temp/')
+        ->pdf();
+
+    $finfo = finfo_open();
+
+    $mimeType = finfo_buffer($finfo, $output, FILEINFO_MIME_TYPE);
+
+    expect('application/pdf')->toEqual($mimeType);
 });
